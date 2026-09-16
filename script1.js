@@ -1044,6 +1044,13 @@ document.addEventListener('DOMContentLoaded', function() {
           const found = defaultPhrasesCatalog.find(d => d.phrase.toLowerCase().includes(clean.toLowerCase()) || clean.toLowerCase().includes(d.phrase.toLowerCase()));
           return found ? Object.assign({}, found) : { id: 'frase-' + idx, phrase: clean, title: clean, letter: clean };
         }
+        if (item && item.id) {
+          const cleanFallback = defaultPhrasesCatalog.find(d => d.id === item.id);
+          if (cleanFallback) {
+            const hasMojibake = /[\u00C3\u00C2\u00F0\u0178]/.test(item.phrase || '') || /[\u00C3\u00C2\u00F0\u0178]/.test(item.letter || '');
+            if (hasMojibake) return Object.assign({}, cleanFallback);
+          }
+        }
         return Object.assign({}, item);
       });
 
