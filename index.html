@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Girasoles de Amor AlexDev</title>
+    <meta name="description" content="Una dedicatoria especial de flores amarillas, hecha con mucho amor para ti.">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+
+    <meta name="theme-color" content="#030406">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="./style3.css">
+     <link rel="stylesheet" href="./style2.css">
+      <link rel="stylesheet" href="./style1.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #030406; min-height: 100vh; min-height: 100dvh; }
+    </style>
+</head>
+
+   <!--
+
+Contáctame:
+
+   * Crea tus diseños sin código
+ https://comparte-amor.vercel.app/
+
+    * Invitame un café
+ https://buymeacoffee.com/alexx.dev
+
+    * Portafolio Web
+ https://alexxdev.vercel.app
+
+    * Sigueme en tiktok
+ https://www.tiktok.com/@alexx.dev?is_from_webapp=1&sender_device=pc
+ 
+    * Canal de WhatsApp
+ https://whatsapp.com/channel/0029VazQEXq90x2vIdNkrH1p
+
+ 
+   * WhatsApp: +52 5587450945
+https://wa.me/525568916053
+
+
+-->
+
+<body class="min-h-screen app-loading">
+
+    <div id="pageLoader" class="page-loader" role="status" aria-live="polite" aria-label="Cargando el universo">
+        <div class="loader-heart" aria-hidden="true"><span></span></div>
+        <p>Cargando nuestro jardín de estrellas</p>
+        <small>Preparando cada girasol para ti...</small>
+    </div>
+
+    <div id="startModal" aria-labelledby="intro-title">
+        <div class="sky" aria-hidden="true">
+            <span class="glow"></span>
+            <span class="stars"></span>
+            <span class="stars stars-far"></span>
+            <span class="shooting-star shooting-one"></span>
+            <span class="shooting-star shooting-two"></span>
+            <span class="love-particle p1">💛</span>
+            <span class="love-particle p2">🌻</span>
+            <span class="love-particle p3">✨</span>
+            <span class="love-particle p4">💛</span>
+            <span class="love-particle p5">🌻</span>
+            <span class="love-particle p6">✨</span>
+        <span class="love-particle p7">🌻</span>
+        <span class="love-particle p8">🌻</span>
+        <span class="love-particle p9">🌻</span>
+        <span class="love-particle p10">🌻</span>
+        <span class="love-particle p11">🌻</span>
+        <span class="love-particle p12">🌻</span>
+
+            <span class="bokeh b1"></span>
+            <span class="bokeh b2"></span>
+            <span class="bokeh b3"></span>
+        </div>
+
+        <div id="loadingState" role="status" aria-live="polite" aria-hidden="true">
+            <span class="loading-spinner" aria-hidden="true"><i></i></span>
+            <strong>Cargando universo...</strong>
+            <small>Preparando cada estrella para ti</small>
+        </div>
+
+        <header class="intro-header">
+            <span class="brand-mark" aria-hidden="true">∞</span>
+        </header>
+
+        <main class="intro">
+            <div class="intro-copy">
+                <p class="kicker"><span></span>Love You<span></span></p>
+                <h1 class="title" id="intro-title">
+                    Flores Amarillas<br><em>para ti</em>
+                </h1>
+            </div>
+
+            <div class="stage" aria-hidden="true">
+                <span class="stage-orbit orbit-one"></span>
+                <span class="stage-orbit orbit-two"></span>
+                <span class="stage-glow"></span>
+                <img src="gif1.gif" alt="" class="bear">
+                <span class="stage-floor"></span>
+            </div>
+
+            <button id="startBtn" type="button" aria-label="Entrar a nuestro universo">
+                <span class="btn-copy">Click aqui</span>
+                <span class="btn-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h13"></path><path d="M13 7l5 5-5 5"></path>
+                    </svg>
+                </span>
+            </button>
+        </main>
+
+        <footer class="intro-footer"><i></i></footer>
+    </div>
+
+    <canvas id="galaxy-canvas"></canvas>
+
+    <div id="galaxyUI" aria-hidden="true">
+        <button id="fullscreenBtn" class="fullscreen-btn" type="button" aria-label="Activar pantalla completa">
+            <svg class="expand-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"></path>
+            </svg>
+            <svg class="collapse-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M8 3v5H3M16 3v5h5M8 21v-5H3M16 21v-5h5"></path>
+            </svg>
+        </button>
+        <button id="soundBtn" class="sound-btn" type="button" aria-label="Silenciar musica">
+            <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            <span class="sound-label"></span>
+        </button>
+        <div id="galaxyHint" class="galaxy-hint" role="status" aria-live="polite">
+            <span class="hint-symbol" aria-hidden="true">✨</span>
+            <span class="hint-desktop">Haz clic en una palabra para abrir una carta 🌻</span>
+            <span class="hint-mobile">Toca una palabra para abrir una carta 🌻</span>
+        </div>
+    </div>
+
+    <div id="err" class="error"></div>
+
+    <!-- Modal de Carta Romántica -->
+    <div id="letterModal" class="letter-modal" aria-hidden="true">
+        <div class="letter-backdrop" id="letterBackdrop"></div>
+        <div class="letter-dialog-wrapper">
+            <article class="letter-card" role="dialog" aria-modal="true" aria-labelledby="letterTitle">
+                <button id="closeLetterBtn" class="letter-close-btn" type="button" aria-label="Cerrar carta">
+                    <span class="letter-close-icon" aria-hidden="true">✕</span>
+                    <span class="letter-close-label">Cerrar</span>
+                </button>
+                <div class="letter-header">
+                    <div class="letter-badge" aria-hidden="true">🌻</div>
+                    <div class="letter-ornament ornament-top" aria-hidden="true">
+                        <span></span><i>✦</i><span></span>
+                    </div>
+                    <h2 id="letterTitle" class="letter-title"></h2>
+                </div>
+                <div class="letter-body">
+                    <div id="letterText" class="letter-text"></div>
+                </div>
+                <div class="letter-footer" aria-hidden="true">
+                    <div class="letter-ornament ornament-bottom">
+                        <span></span><i>❦</i><span></span>
+                    </div>
+                    <p class="letter-sign">Siempre en mi corazón</p>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <canvas id="fx"></canvas>
+
+    <script>
+        window.GALAXIA_INFINITA_DATA = {
+            "phrases": [
+                {
+                    "id": "preciosa",
+                    "phrase": "Preciosa ✨",
+                    "title": "Preciosa",
+                    "letter": "Mi Gisse,\n\nno te imaginas lo preciosa que te ves cuando te ríes de la nada o cuando me estás contando algo que te emociona.\n\nNo hablo solo de cuando te arreglas —que siempre me dejas loco—, sino de esa forma tan tuya de ser, tan transparente y linda.\n\nTienes una luz que me desarma por completo y me hace sentir el novio más afortunado del mundo.\n\nTe amo muchísimo, preciosa mía. ✨"
+                },
+                {
+                    "id": "mi-nina-hermosa",
+                    "phrase": "Mi niña hermosa 🌷",
+                    "title": "Mi niña hermosa",
+                    "letter": "Mi niña hermosa,\n\ndespués de todo este tiempo juntos, me sigue naciendo cuidarte, consentirte y buscar cualquier excusa para sacarte una sonrisa.\n\nHay una ternura en ti que me derrite, y cuando estamos lejos no hay un solo día en que no piense en las ganas que tengo de tenerte cerquita para abrazarte fuerte y no soltarte.\n\nGracias por existir y por ser tan especial conmigo. 🌷"
+                },
+                {
+                    "id": "mi-princesa",
+                    "phrase": "Mi princesa 💛",
+                    "title": "Mi princesa",
+                    "letter": "Mi amor,\n\nsiempre te he dicho princesa porque te mereces todo el cariño y la atención del mundo.\n\nMe encanta tu forma de tratar a los tuyos, la nobleza que tienes y esa mezcla de mujer fuerte con la niña dulce de la que me enamoré.\n\nVerte feliz y saber que estás bien siempre va a ser mi mayor tranquilidad.\n\nAquí estoy y voy a estar siempre para ti, mi reina. 💛"
+                },
+                {
+                    "id": "mi-girasol",
+                    "phrase": "Mi girasol 🌻",
+                    "title": "Mi girasol",
+                    "letter": "Mi Gisse,\n\nsiempre me ha gustado decirte mi girasol porque tienes eso tan bonito de alegrarme los días.\n\nA veces puedo estar cansado, estresado o con mil cosas en la cabeza, y me basta hablar un ratito contigo o ver una foto tuya para que todo se sienta más suave.\n\nMe haces bien.\n\nY aunque a veces la distancia cueste y quisiera tenerte aquí al lado, saber que estás en mi vida me llena el pecho de agradecimiento.\n\nTe amo, mi girasol. 🌻"
+                },
+                {
+                    "id": "bella",
+                    "phrase": "Bella 🌼",
+                    "title": "Bella",
+                    "letter": "Mi vida,\n\neres bella por donde se te mire.\n\nPor fuera eres divina, tus ojitos y tu sonrisa me encantan, pero lo que más me atrapa de ti es lo linda que eres por dentro: tus detalles, tu paciencia, tu complicidad y la manera tan tuya de quererme.\n\nQué suerte la mía haber coincidido contigo y poder llamarte mi novia después de tantos años. 🌼"
+                },
+                {
+                    "id": "mi-alegria",
+                    "phrase": "Mi alegría 💫",
+                    "title": "Mi alegría",
+                    "letter": "Mi niña hermosa,\n\nuna de las cosas que más valoro de lo nuestro es cómo me alegras la vida.\n\nMe encanta molestarte, reírme contigo de cualquier bobada, compartir notas de voz y hablar de todo o de nada.\n\nContigo los días comunes se sienten especiales, y cuando no estamos juntos, me hace falta tu risa más de lo que te imaginas.\n\nTú eres mi alegría diaria, mi amor. 💫"
+                },
+                {
+                    "id": "mi-paz",
+                    "phrase": "Mi paz 🤍",
+                    "title": "Mi paz",
+                    "letter": "Mi amor,\n\nde verdad tú tienes algo que me tranquiliza el corazón.\n\nEn medio del ruido de la rutina o de días complicados, escuchar tu voz o simplemente saber que estás ahí me devuelve la calma.\n\nContigo siento esa confianza y esa tranquilidad de estar en casa, sin máscaras y con todo el amor del mundo.\n\nEres mi refugio y mi lugar seguro, Gisse. 🤍"
+                },
+                {
+                    "id": "mi-vida",
+                    "phrase": "Mi vida 💛",
+                    "title": "Mi vida",
+                    "letter": "Mi Gisse,\n\ndecirte 'mi vida' me sale del alma porque te has vuelto parte de todo lo que sueño y de todo lo que hago.\n\nHemos pasado por tantas cosas juntos, hemos crecido de la mano y me hace una ilusión enorme seguir construyendo nuestro futuro.\n\nAunque a veces la distancia apriete un poquito y nos toque extrañarnos, mi vida entera es más bonita contigo en ella. 💛"
+                },
+                {
+                    "id": "mi-tesoro",
+                    "phrase": "Mi tesoro ✨",
+                    "title": "Mi tesoro",
+                    "letter": "Mi niña,\n\nla gente se pasa la vida buscando algo sincero y real, y yo tuve la bendición de encontrarte a ti.\n\nPara mí eres un tesoro enorme, no solo por lo que representas en mi presente, sino por el valor incalculable de tu cariño, tu lealtad y tu corazón.\n\nTe cuido y te valoro con todo lo que soy, hoy y siempre. ✨"
+                },
+                {
+                    "id": "hermosa",
+                    "phrase": "Hermosa 🌸",
+                    "title": "Hermosa",
+                    "letter": "Mi amor,\n\neres hermosa cuando te ríes a carcajadas, cuando te quedas concentrada en algo, cuando me haces pucheros o cuando me regañas con cariño.\n\nEn cada faceta tuya encuentro una razón nueva para enamorarme otra vez.\n\nNo hay nadie que se compare a ti ni a la energía tan bonita que dejas en mí cada vez que te veo.\n\nEres perfecta a mis ojos, mi Gisse. 🌸"
+                },
+                {
+                    "id": "mi-luz",
+                    "phrase": "Mi luz ✨",
+                    "title": "Mi luz",
+                    "letter": "Mi niña hermosa,\n\nhay días que se sienten pesados o donde las cosas no salen como uno espera, pero pensar en ti es como respirar hondo.\n\nTu cariño siempre me guía, me levanta el ánimo y me recuerda lo que de verdad vale la pena.\n\nGracias por iluminar mis días, por creer en mí y por estar siempre a mi lado, incluso cuando no podemos vernos tanto como quisiéramos. ✨"
+                },
+                {
+                    "id": "mi-cielo",
+                    "phrase": "Mi cielo ☀️",
+                    "title": "Mi cielo",
+                    "letter": "Mi Gisse,\n\ncontigo siento una libertad y una confianza inmensa.\n\nEres mi cielo porque a tu lado puedo ser completamente yo: el que bromea, el que se sincera, el que te cuenta sus miedos y el que te ama sin medidas.\n\nGracias por darme un amor tan limpio, tan bonito y tan lleno de paz.\n\nQué fortuna tenerte, mi cielo. ☀️"
+                },
+                {
+                    "id": "encantadora",
+                    "phrase": "Encantadora 🌷",
+                    "title": "Encantadora",
+                    "letter": "Mi amor,\n\ntienes un encanto natural que no se compra ni se aprende: es tu forma de hablar, tus ocurrencias, tus gestos y esa dulzura con la que me miras.\n\nHan pasado años y todavía me tienes tan enamorado como al principio —o incluso más—.\n\nMe encanta ser tu novio y me encanta que seas tú mi cómplice en todo. 🌷"
+                },
+                {
+                    "id": "mi-persona-favorita",
+                    "phrase": "Mi persona favorita 💛",
+                    "title": "Mi persona favorita",
+                    "letter": "Gisse,\n\nsiempre termino queriendo hablar contigo, contarte cómo estuvo mi día, escucharte y compartir hasta el detalle más simple.\n\nPor eso eres mi persona favorita en este mundo.\n\nPorque contigo no necesito que pase nada extraordinario para sentirme feliz: solo saber de ti ya hace que cualquier día valga la pena.\n\nTe elijo mil veces más. 💛"
+                },
+                {
+                    "id": "mi-razon-de-sonreir",
+                    "phrase": "Mi razón de sonreír 😊",
+                    "title": "Mi razón de sonreír",
+                    "letter": "Mi niña,\n\nmuchas veces me descubro mirando el celular con una sonrisa boba solo porque me llegó un mensaje tuyo o porque me acordé de algo gracioso que dijiste.\n\nTú provocas en mí una felicidad tan espontánea y bonita que no cambiaría por nada.\n\nGracias por sacarme tantas sonrisas, incluso en la distancia.\n\nTe amo un montón. 😊"
+                },
+                {
+                    "id": "mi-corazon",
+                    "phrase": "Mi corazón ❤️",
+                    "title": "Mi corazón",
+                    "letter": "Mi amor,\n\ntú te ganaste un lugar en mi pecho que nadie más podría ocupar jamás.\n\nDesde hace años eres la dueña de mis mejores sentimientos, de mis planes y de mis ganas de salir adelante.\n\nCada latido lleva tu nombre y cada sueño que tengo te incluye a ti.\n\nTe amo con todo mi corazón, mi niña. ❤️"
+                },
+                {
+                    "id": "mi-amor",
+                    "phrase": "Mi amor 💛",
+                    "title": "Mi amor",
+                    "letter": "Mi amor,\n\nde todas las cosas lindas que tengo en la vida, una de las más importantes eres tú.\n\nGracias por quererme, por acompañarme, por aguantarme en mis días difíciles y por seguir construyendo esto conmigo con tanta paciencia y cariño.\n\nYo de verdad te quiero con el alma, y cada día me convenzo más de que tenerte ha sido lo mejor que me ha pasado. 💛"
+                },
+                {
+                    "id": "unica",
+                    "phrase": "Única ✨",
+                    "title": "Única",
+                    "letter": "Mi Gisse,\n\nno existe nadie en el mundo como tú.\n\nEsa mezcla tuya de carácter, nobleza, inteligencia y ternura infinita te hace única e irrepetible.\n\nNunca olvides lo valiosa que eres, lo mucho que te admiro y lo orgulloso que me siento de la mujer en la que te has convertido y de ser quien camina a tu lado. ✨"
+                },
+                {
+                    "id": "especial",
+                    "phrase": "Especial 🌼",
+                    "title": "Especial",
+                    "letter": "Mi vida,\n\nhaces que cualquier momento sencillo se vuelva un recuerdo inolvidable.\n\nUna llamada larga por la noche, vernos después de días sin coincidir o simplemente reírnos juntos son las cosas que más espero y que más atesoro de mi semana.\n\nEres demasiado especial para mí, Gisse. 🌼"
+                },
+                {
+                    "id": "maravillosa",
+                    "phrase": "Maravillosa 💫",
+                    "title": "Maravillosa",
+                    "letter": "Mi amor,\n\nme asombra constantemente la generosidad de tu corazón, tu esfuerzo diario y el amor tan sincero que entregas a la gente que quieres.\n\nEres una mujer maravillosa en todo sentido, y tenerte cerca —en persona o en el corazón— es un regalo que cuido todos los días.\n\nQué orgullo tenerte a mi lado. 💫"
+                },
+                {
+                    "id": "mi-consentida",
+                    "phrase": "Mi consentida 💛",
+                    "title": "Mi consentida",
+                    "letter": "Mi niña hermosa,\n\nme fascina consentirte, complacerte en tus antojos y verte con esa cara de felicidad cuando te sorprendo con algo.\n\nTe mereces todo el cariño, todos los abrazos y todo lo bonito de este mundo.\n\nSiempre vas a ser mi consentida número uno, no lo dudes nunca. 💛"
+                },
+                {
+                    "id": "mi-bonita",
+                    "phrase": "Mi bonita 🌷",
+                    "title": "Mi bonita",
+                    "letter": "Mi bonita,\n\nqué bien te queda esa palabra. Eres bonita de cara, bonita de alma, bonita en tus intenciones y en la forma tan dulce en la que me tratas.\n\nA veces la distancia me hace extrañar tanto tomarte de la mano y decirte todo esto mirándote a los ojos, pero sé que cada día que pasa nos acerca más a todo lo que soñamos juntos. 🌷"
+                },
+                {
+                    "id": "dulce-nina",
+                    "phrase": "Dulce niña ✨",
+                    "title": "Dulce niña",
+                    "letter": "Mi Gisse,\n\nesa dulzura tuya, tu lado tierno y esa forma tan espontánea de quererme es lo que más me enamora de ti.\n\nAunque pasen los años y crezcamos juntos, nunca pierdas esa esencia tan pura y bonita que te hace brillar.\n\nAquí tienes a un novio que te adora y que siempre va a cuidar de ti. ✨"
+                },
+                {
+                    "id": "mi-mundo",
+                    "phrase": "Mi mundo 🌍",
+                    "title": "Mi mundo",
+                    "letter": "Mi amor,\n\npuede haber un mundo entero allá afuera lleno de prisa y ruido, pero el mío empieza y termina donde estás tú.\n\nTú eres mi prioridad, mi refugio y el motivo por el que siempre quiero ser mejor persona.\n\nGracias por ser mi cómplice y mi compañera de vida.\n\nTe amo con locura, mi mundo. 🌍"
+                },
+                {
+                    "id": "perfecta-para-mi",
+                    "phrase": "Perfecta para mí 💛",
+                    "title": "Perfecta para mí",
+                    "letter": "Mi amor,\n\nyo sé que nadie es perfecto, pero contigo siento algo muy real: encajas demasiado bonito conmigo.\n\nTu forma de ser, tu cariño, tu manera de hablarme, de estar conmigo y hasta de hacerme falta… todo eso hace que para mí seas perfecta.\n\nNo porque seas irreal, sino porque eres tú, tal como eres, y a mí me encantas por completo. 💛"
+                },
+                {
+                    "id": "mi-estrella",
+                    "phrase": "Mi estrella ✨",
+                    "title": "Mi estrella",
+                    "letter": "Mi niña hermosa,\n\neres esa luz fija que siempre me orienta cuando me siento perdido o cansado.\n\nPensar en tu sonrisa, en nuestros planes y en el próximo abrazo que nos vamos a dar me da fuerzas para cualquier cosa.\n\nGracias por ser mi estrella y por no soltarme la mano jamás. ✨"
+                },
+                {
+                    "id": "mi-princesa-hermosa",
+                    "phrase": "Mi princesa hermosa 👑",
+                    "title": "Mi princesa hermosa",
+                    "letter": "Mi Gisse hermosa,\n\neres la dueña absoluta de mis pensamientos y el amor más lindo y sincero que la vida me pudo regalar.\n\nPrometo seguir cuidando de nosotros, valorando cada segundo que compartimos y recordándote siempre lo importante que eres para mí.\n\nTe amo hoy, mañana y siempre, mi princesa. 👑"
+                },
+                {
+                    "id": "divina",
+                    "phrase": "Divina 🌼",
+                    "title": "Divina",
+                    "letter": "Mi amor,\n\ntienes una gracia y una elegancia tan natural que me deja sin palabras.\n\nPero más allá de lo hermosa que eres, es tu bondad y la calidez con la que me abrazas lo que me llena el alma.\n\nEstar contigo y poder compartir mi vida a tu lado es de las mayores bendiciones que tengo. 🌼"
+                },
+                {
+                    "id": "mi-todo",
+                    "phrase": "Mi todo ❤️",
+                    "title": "Mi todo",
+                    "letter": "Mi Gisse,\n\neres mi novia, mi mejor amiga, mi cómplice y mi gran amor.\n\nHas estado en las buenas, en las difíciles y en cada paso importante de mi camino.\n\nNo necesito nada más teniéndote a mi lado; contigo lo tengo todo y contigo quiero seguir viviendo mil cosas más.\n\nTe amo con toda mi alma. ❤️"
+                },
+                {
+                    "id": "mi-sueno-bonito",
+                    "phrase": "Mi sueño bonito ✨",
+                    "title": "Mi sueño bonito",
+                    "letter": "Mi niña,\n\nmuchas veces soñé con un amor sincero, leal, cómplice y tranquilo.\n\nY cuando llegaste tú, no solo hiciste realidad ese sueño, sino que lo superaste con creces todos los días.\n\nGracias por estos años juntos, por elegirme cada mañana y por ser la mujer más increíble de mi vida.\n\nTe amo con todo lo que soy, mi sueño bonito. ✨"
+                }
+            ],
+            "ringImages": [
+                "4.png",
+                "5.png",
+                "6.png",
+                "7.png"
+            ],
+            "title3d": "Te amo Gisse",
+            "assetBase": ""
+        };
+    </script>
+    
+    <script src="./script2.js"></script>
+    <script src="./script1.js"></script>
+</body>
+
+   <!--
+
+Contáctame:
+
+   * Crea tus diseños sin código
+ https://comparte-amor.vercel.app/
+
+    * Invitame un café
+ https://buymeacoffee.com/alexx.dev
+
+    * Portafolio Web
+ https://alexxdev.vercel.app
+
+    * Sigueme en tiktok
+ https://www.tiktok.com/@alexx.dev?is_from_webapp=1&sender_device=pc
+ 
+    * Canal de WhatsApp
+ https://whatsapp.com/channel/0029VazQEXq90x2vIdNkrH1p
+
+ 
+   * WhatsApp: +52 5587450945
+https://wa.me/525568916053
+
+
+-->
+
+</html>
